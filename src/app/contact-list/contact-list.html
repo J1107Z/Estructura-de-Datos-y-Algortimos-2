@@ -1,0 +1,14 @@
+<h3>Lista de Contactos</h3>
+
+@if (contacts.length === 0) {
+  <p>No hay contactos guardados.</p>
+} @else {
+  <ul>
+    @for (contact of contacts; track contact.phone) {
+      <li>
+        {{ contact.name }} - {{ contact.phone }}
+        <button type="button" (click)="eliminar(contact)">Eliminar</button>
+      </li>
+    }
+  </ul>
+}
