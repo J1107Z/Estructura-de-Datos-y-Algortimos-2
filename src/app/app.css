@@ -1,0 +1,187 @@
+.contenedor {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.cabecera {
+  margin-bottom: 25px;
+}
+
+.cabecera h1 {
+  margin: 0 0 5px 0;
+  font-size: 22px;
+}
+
+.cabecera p {
+  margin: 0;
+  color: #000000;
+  font-size: 14px;
+}
+
+/* Puntos */
+.punto-caja {
+  margin-bottom: 10px;
+}
+
+.punto-header {
+  margin-bottom: 15px;
+}
+
+.punto-header h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #e44949;
+}
+
+.separador-puntos {
+  border-top: 1px solid #000000;
+  margin: 25px 0;
+}
+
+/* Formulario */
+.form-fila {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.form-fila input {
+  flex: 1;
+  min-width: 180px;
+  padding: 8px 10px;
+  font-size: 13px;
+  border: 1px solid #cccccc;
+}
+
+.caja-atender {
+  margin-bottom: 15px;
+}
+
+/* Visualizacion de nodos */
+.visual-titulo {
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.fila-nodos {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.caja-nodo {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  border: 1px solid #000000;
+  padding: 6px 10px;
+  font-size: 13px;
+  background-color: #ffffff;
+}
+
+.caja-nodo small {
+  color: #000000;
+  font-size: 11px;
+}
+
+.nodo-seleccionado {
+  background-color: #eaf1f8;
+  border-color: #99b8d6;
+}
+
+.flecha {
+  font-family: Consolas, monospace;
+  font-size: 15px;
+}
+
+.puntero {
+  font-size: 13px;
+  color: #000000;
+}
+
+.texto-vacio {
+  font-size: 13px;
+  color: #000000;
+}
+
+/* Seccion 3: Guardia de medicos */
+.guardia-caja {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.guardia-info {
+  flex: 1;
+  min-width: 220px;
+}
+
+.subtitulo-campo {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: #000000;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.medico-nombre {
+  margin: 0;
+  font-size: 17px;
+  color: #000000;
+}
+
+.medico-especialidad {
+  margin: 2px 0 0 0;
+  color: #000000;
+  font-size: 13px;
+}
+
+.temporizador-bloque {
+  text-align: center;
+  min-width: 160px;
+}
+
+.segundos-reloj {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.estado-reloj {
+  color: #666666;
+  font-size: 11px;
+}
+
+/* Seccion 4: Comite */
+.comite-navegacion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.comite-actual {
+  flex: 1;
+  text-align: center;
+  min-width: 180px;
+}
+
+.comite-actual h3 {
+  margin: 2px 0;
+  font-size: 17px;
+  color: #000000;
+}
+
+.cargo-texto {
+  margin: 0;
+  color: #000000;
+  font-size: 13px;
+}
