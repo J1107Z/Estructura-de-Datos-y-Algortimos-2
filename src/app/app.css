@@ -1,0 +1,71 @@
+.contenedor-principal {
+  max-width: 620px;
+  margin: 30px auto 60px auto;
+  text-align: center;
+  font-family: "Times New Roman", Times, serif;
+  padding: 0 15px;
+}
+
+.cabecera {
+  margin-bottom: 30px;
+}
+
+h1 {
+  margin: 0 0 5px 0;
+  font-size: 26px;
+  color: #1a237e;
+}
+
+h2 {
+  margin: 0 0 15px 0;
+  font-size: 18px;
+  color: #555;
+  font-weight: normal;
+}
+
+.datos-estudiante {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 8px 15px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.datos-estudiante p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+.selector-vistas {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-tab {
+  padding: 10px 18px;
+  background-color: #e9ecef;
+  color: #495057;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-tab:hover {
+  background-color: #dee2e6;
+}
+
+.btn-tab.activo {
+  background-color: #007bff;
+  color: #ffffff;
+  border-color: #007bff;
+}
+
+.area-contenido {
+  margin-top: 20px;
+}

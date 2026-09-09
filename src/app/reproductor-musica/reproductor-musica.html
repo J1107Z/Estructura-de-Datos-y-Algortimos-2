@@ -1,0 +1,56 @@
+<div class="contenedor-reproductor">
+  <h2>1. Reproductor de Canciones</h2>
+  <p class="subtitulo">Navegación en orden secuencial (Head - Next - Tail - Null)</p>
+
+  <!-- Tarjeta de reproducción actual -->
+  <div class="tarjeta-reproduccion">
+    @if (!haTerminado() && cancionActual()) {
+    <div class="info-cancion">
+      <h3>{{ cancionActual()?.titulo }}</h3>
+      <p class="artista">{{ cancionActual()?.artista }}</p>
+      <span class="duracion">Duración: {{ cancionActual()?.duracion }}</span>
+    </div>
+
+    <div class="acciones">
+      <button type="button" class="btn-primario" (click)="siguienteCancion()">
+        Siguiente Canción
+      </button>
+    </div>
+    } @else {
+    <div class="fin-playlist">
+      <p>Ha finalizado la lista de reproducción (apunta a null).</p>
+      <button type="button" class="btn-secundario" (click)="reiniciarPlaylist()">
+        Reiniciar Playlist y volver al Head
+      </button>
+    </div>
+    }
+  </div>
+
+  <!-- Lista de canciones en la LinkedList -->
+  <div class="seccion-lista">
+    <h3>Canciones en la Lista ({{ totalCanciones() }})</h3>
+    <ul class="lista-canciones">
+      @for (cancion of canciones(); track cancion.titulo) {
+      <li [class.cancion-activa]="cancion.titulo === cancionActual()?.titulo">
+        <div class="cancion-item">
+          <strong>{{ cancion.titulo }}</strong> - {{ cancion.artista }}
+        </div>
+        <span class="duracion-tag">{{ cancion.duracion }}</span>
+      </li>
+      }
+    </ul>
+  </div>
+
+  <!-- Formulario sencillo para agregar más canciones (append) -->
+  <div class="seccion-agregar">
+    <h3>Agregar Nueva Canción a la Lista</h3>
+    <div class="formulario">
+      <input #tituloInput placeholder="Título de la canción">
+      <input #artistaInput placeholder="Artista">
+      <input #duracionInput placeholder="Duración (ej. 3:20)">
+      <button type="button" class="btn-agregar" (click)="agregarCancion(tituloInput, artistaInput, duracionInput)">
+        + Agregar (append)
+      </button>
+    </div>
+  </div>
+</div>

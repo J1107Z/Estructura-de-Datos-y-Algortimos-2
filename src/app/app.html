@@ -1,0 +1,27 @@
+<div class="contenedor-principal">
+  <header class="cabecera">
+    <h1>{{ materia }}</h1>
+    <h2>Challenge 03 - Listas Enlazadas</h2>
+
+    <!-- Menú de navegación entre componentes -->
+    <nav class="selector-vistas">
+      <button type="button" class="btn-tab" [class.activo]="vistaActiva() === 'musica'"
+        (click)="cambiarVista('musica')">
+        1. Reproductor de Música en Lista Simple
+      </button>
+
+      <button type="button" class="btn-tab" [class.activo]="vistaActiva() === 'navegador'"
+        (click)="cambiarVista('navegador')">
+        2. Historial de Navegador en Lista Doblemente Enlazada
+      </button>
+    </nav>
+  </header>
+
+  <main class="area-contenido">
+    @if (vistaActiva() === 'musica') {
+    <app-reproductor-musica></app-reproductor-musica>
+    } @else {
+    <app-historial-navegador></app-historial-navegador>
+    }
+  </main>
+</div>

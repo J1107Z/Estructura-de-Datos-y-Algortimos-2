@@ -1,0 +1,80 @@
+<div class="contenedor-navegador">
+  <h2>2. Historial de Navegación</h2>
+  <p class="subtitulo">Navegación bidireccional entre páginas (Atrás - Nodo - Adelante)</p>
+
+  <!-- Barra de navegación del explorador -->
+  <div class="barra-navegador">
+    <div class="controles-navegacion">
+      <button type="button" class="btn-nav" [disabled]="!puedeRetroceder()" (click)="retroceder()"
+        title="Retroceder a la página anterior">
+        Atrás
+      </button>
+
+      <button type="button" class="btn-nav" [disabled]="!puedeAvanzar()" (click)="avanzar()"
+        title="Avanzar a la página siguiente">
+        Adelante
+      </button>
+    </div>
+
+    <!-- Barra de dirección URL -->
+    <div class="barra-url">
+      <span class="icono-candado">&#128274;</span>
+      <input type="text" readonly [value]="urlActual()" class="input-url">
+    </div>
+  </div>
+
+  <!-- Vista previa de la página actual e inspección de punteros -->
+  <div class="pantalla-navegador">
+    @if (paginaActual()) {
+    <div class="contenido-pagina">
+      <span class="etiqueta-estado">Página Actual Activa</span>
+      <h3>{{ paginaActual()?.titulo }}</h3>
+      <p class="url-texto">{{ urlActual() }}</p>
+
+      <!-- Inspección pedagógica de punteros DoublyLinkedList -->
+      <div class="punteros-info">
+        <div class="puntero-item">
+          <span class="puntero-label">Puntero Anterior:</span>
+          <span class="puntero-valor">{{ punteroPrev() }}</span>
+        </div>
+        <div class="puntero-item">
+          <span class="puntero-label">Puntero Siguiente:</span>
+          <span class="puntero-valor">{{ punteroNext() }}</span>
+        </div>
+      </div>
+    </div>
+    } @else {
+    <p>No hay página seleccionada.</p>
+    }
+  </div>
+
+  <!-- Historial completo de la lista doblemente enlazada -->
+  <div class="seccion-historial">
+    <h3>Páginas en el Historial ({{ totalPaginas() }})</h3>
+    <ul class="lista-historial">
+      @for (pagina of paginas(); track pagina.url) {
+      <li [class.pagina-activa]="pagina.url === urlActual()">
+        <div class="pagina-info">
+          <strong>{{ pagina.titulo }}</strong>
+          <span class="pagina-url-sub">{{ pagina.url }}</span>
+        </div>
+        @if (pagina.url === urlActual()) {
+        <span class="badge-actual">Estás aquí</span>
+        }
+      </li>
+      }
+    </ul>
+  </div>
+
+  <!-- Formulario para simular visitar una nueva URL -->
+  <div class="seccion-visitar">
+    <h3>Visitar Nueva Página Web</h3>
+    <div class="formulario">
+      <input #nuevoTitulo placeholder="Nombre del sitio (ej. Wikipedia)">
+      <input #nuevaUrl placeholder="URL (ej. wikipedia.org)">
+      <button type="button" class="btn-visitar" (click)="visitarPagina(nuevoTitulo, nuevaUrl)">
+        + Visitar Página
+      </button>
+    </div>
+  </div>
+</div>
