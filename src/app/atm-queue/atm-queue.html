@@ -1,0 +1,84 @@
+<div class="contenedor-queue">
+  <p class="descripcion">
+    Estructura FIFO (First In, First Out). La primera persona en llegar a la fila es la primera en ser atendida por el
+    cajero.
+  </p>
+
+  <!-- Formulario para agregar una persona a la cola -->
+  <div class="bloque-formulario">
+    <h3>Ingresar Persona a la Fila del Cajero</h3>
+    <div class="formulario">
+      <div class="campo">
+        <label for="input-name">Nombre:</label>
+        <input #nameInput id="input-name" type="text" placeholder="Ej: Diego Fernando Adarve" />
+      </div>
+
+      <div class="campo">
+        <label for="input-amount">Monto a Retirar ($):</label>
+        <input #amountInput id="input-amount" type="number" placeholder="Ej: 1500000" min="10000" step="10000" />
+      </div>
+
+      <div class="fila-botones">
+        <button type="button" class="btn" (click)="agregarPersona(nameInput, amountInput)">
+          Agregar a la Cola
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botones de Operaciones de Cola -->
+  <div class="bloque-operaciones">
+    <h3>Operaciones del Cajero</h3>
+    <div class="grupo-botones">
+      <button type="button" class="btn" (click)="atenderPersona()">
+        Atender Persona (dequeue)
+      </button>
+      <button type="button" class="btn" (click)="consultarFrente()">
+        Ver Próximo en Fila (peek)
+      </button>
+      <button type="button" class="btn" (click)="imprimirEnConsola()">
+        Imprimir en Consola (print)
+      </button>
+      <button type="button" class="btn" (click)="vaciarCola()">
+        Vaciar Cola
+      </button>
+    </div>
+  </div>
+
+  <!-- Mensaje de estado de las operaciones -->
+  @if (mensajeOperacion()) {
+  <div class="caja-mensaje">
+    <strong>Estado:</strong> {{ mensajeOperacion() }}
+  </div>
+  }
+
+  <!-- Visualización de la Cola en pantalla según fecha de llegada -->
+  <div class="bloque-cola">
+    <h3>Fila del Cajero Automático</h3>
+
+    @if (personas().length === 0) {
+    <p class="cola-vacia">No hay personas esperando en la fila del cajero automático.</p>
+    } @else {
+    <div class="lista-cola">
+      @for (persona of personas(); track persona.name + persona.arrivalDate.toISOString(); let idx = $index) {
+      <div class="tarjeta-persona" [class.es-frente]="idx === 0">
+        <div class="encabezado-persona">
+          @if (idx === 0) {
+          <span class="etiqueta-frente">[EN CAJERO / ATENDIENDO]</span>
+          } @else if (idx === personas().length - 1 && personas().length > 1) {
+          <span class="etiqueta-turno">[Turno {{ idx + 1 }} - ÚLTIMO EN FILA]</span>
+          } @else {
+          <span class="etiqueta-turno">[Turno {{ idx + 1 }}]</span>
+          }
+          <span class="nombre-persona"><strong>{{ persona.name }}</strong></span>
+        </div>
+        <div class="detalle-persona">
+          <p><strong>Monto a Retirar:</strong> ${{ persona.withdrawalAmount.toLocaleString('es-CO') }}</p>
+          <p><strong>Fecha y Hora de Llegada:</strong> {{ formatearFecha(persona.arrivalDate) }}</p>
+        </div>
+      </div>
+      }
+    </div>
+    }
+  </div>
+</div>

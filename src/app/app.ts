@@ -1,12 +1,12 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { AtmQueue } from './atm-queue/atm-queue';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [AtmQueue],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('05-CajeroAutomatico');
+  titulo = 'Challenge 05 - Cajero Automático';
 }
