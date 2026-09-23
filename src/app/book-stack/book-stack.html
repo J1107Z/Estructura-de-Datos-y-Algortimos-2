@@ -1,0 +1,96 @@
+<div class="contenedor-stack">
+  <h2>Pila de Libros (Stack)</h2>
+  <p class="descripcion">
+    Estructura LIFO (Last In, First Out). El último libro agregado es el primero en salir.
+  </p>
+
+  <!-- Formulario para crear y agregar un nuevo libro (push) -->
+  <div class="bloque-formulario">
+    <h3>Crear Nuevo Libro</h3>
+    <div class="formulario">
+      <div class="campo">
+        <label for="input-name">Nombre:</label>
+        <input #nameInput id="input-name" type="text" placeholder="Ej: El Principito" />
+      </div>
+
+      <div class="campo">
+        <label for="input-isbn">ISBN:</label>
+        <input #isbnInput id="input-isbn" type="text" placeholder="Ej: 978-0156013987" />
+      </div>
+
+      <div class="campo">
+        <label for="input-author">Autor:</label>
+        <input #authorInput id="input-author" type="text" placeholder="Ej: Antoine de Saint-Exupéry" />
+      </div>
+
+      <div class="campo">
+        <label for="input-editorial">Editorial:</label>
+        <input #editorialInput id="input-editorial" type="text" placeholder="Ej: Editorial Salamandra" />
+      </div>
+
+      <div class="fila-botones">
+        <button type="button" class="btn" (click)="agregarLibro(nameInput, isbnInput, authorInput, editorialInput)">
+          Agregar a la Pila (push)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botones de Operaciones de Pila -->
+  <div class="bloque-operaciones">
+    <h3>Operaciones de Pila</h3>
+    <div class="grupo-botones">
+      <button type="button" class="btn" (click)="desapilarLibro()">
+        Desapilar (pop)
+      </button>
+      <button type="button" class="btn" (click)="consultarCima()">
+        Ver Cima (peek)
+      </button>
+      <button type="button" class="btn" (click)="imprimirEnConsola()">
+        Imprimir en Consola (print)
+      </button>
+      <button type="button" class="btn" (click)="vaciarPila()">
+        Vaciar Pila
+      </button>
+    </div>
+  </div>
+
+  <!-- Mensaje de estado de las operaciones -->
+  @if (mensajeOperacion()) {
+  <div class="caja-mensaje">
+    <strong>Estado:</strong> {{ mensajeOperacion() }}
+  </div>
+  }
+
+  <!-- Visualización de la Pila en pantalla -->
+  <div class="bloque-pila">
+    <h3>Libros en la Pila (Total: {{ totalLibros() }})</h3>
+
+    @if (libros().length === 0) {
+    <p class="pila-vacia">La pila está vacía actualmente.</p>
+    } @else {
+    <div class="lista-pila">
+      @for (libro of libros(); track libro.isbn; let idx = $index) {
+      <div class="tarjeta-libro" [class.es-cima]="idx === 0">
+        <div class="encabezado-libro">
+          @if (idx === 0) {
+          <span class="etiqueta-cima">[CIMA / TOP]</span>
+          } @else {
+          <span class="etiqueta-posicion">[Nivel {{ libros().length - idx }}]</span>
+          }
+          <span class="titulo-libro"><strong>{{ libro.name }}</strong></span>
+        </div>
+        <div class="detalle-libro">
+          <p><strong>ISBN:</strong> {{ libro.isbn }}</p>
+          <p><strong>Autor:</strong> {{ libro.author }}</p>
+          <p><strong>Editorial:</strong> {{ libro.editorial }}</p>
+        </div>
+      </div>
+      }
+      <div class="base-pila">
+        <strong>[FONDO DE LA PILA]</strong>
+      </div>
+    </div>
+    }
+  </div>
+</div>
