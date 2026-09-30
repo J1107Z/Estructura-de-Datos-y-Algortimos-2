@@ -1,0 +1,11 @@
+<aside class="sidebar">
+  <ul class="menu-list">
+    @for (node of menuNodes(); track node.value.link) {
+    <app-sidebar-item
+      [node]="node"
+      [depth]="0"
+      (itemSelected)="onItemSelected($event)"
+    ></app-sidebar-item>
+    }
+  </ul>
+</aside>

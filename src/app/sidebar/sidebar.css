@@ -1,0 +1,13 @@
+.sidebar {
+  width: 275px;
+  min-height: 100vh;
+  background-color: #13161c;
+  box-sizing: border-box;
+  padding: 20px 0;
+}
+
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
