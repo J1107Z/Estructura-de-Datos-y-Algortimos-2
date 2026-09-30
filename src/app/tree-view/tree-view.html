@@ -1,0 +1,90 @@
+<div class="contenedor-tree">
+  <p class="descripcion">
+    Árbol Binario de Búsqueda (BST). Los valores menores se insertan en el subárbol izquierdo y los mayores en el
+    derecho. No se permiten valores duplicados.
+  </p>
+
+  <!--Inserción de Valores -->
+  <div class="bloque-seccion">
+    <h3>1. Inserción de Valores</h3>
+    <div class="formulario">
+      <div class="campo">
+        <label for="input-numero">Insertar un número o varios (separados por coma):</label>
+        <div class="fila-input-btn">
+          <input #numInput id="input-numero" type="text" placeholder="Ej: 25 o 50, 30, 70, 20"
+            (keyup.enter)="insertarValores(numInput)" />
+          <button type="button" class="btn" (click)="insertarValores(numInput)">Insertar</button>
+        </div>
+      </div>
+
+      <!-- Mensaje de Estado -->
+      @if (mensajeOperacion()) {
+      <div class="caja-mensaje">
+        <strong>Estado:</strong> {{ mensajeOperacion() }}
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Búsqueda de Valores -->
+  <div class="bloque-seccion">
+    <h3>2. Buscar Valor en el Árbol</h3>
+    <div class="formulario">
+      <div class="campo">
+        <label for="input-busqueda">Número a verificar:</label>
+        <div class="fila-input-btn">
+          <input #busquedaInput id="input-busqueda" type="number" placeholder="Ej: 40"
+            (keyup.enter)="buscarNumero(busquedaInput)" />
+          <button type="button" class="btn" (click)="buscarNumero(busquedaInput)">Buscar Valor</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Acciones Generales -->
+  <div class="bloque-seccion">
+    <h3>3. Acciones y Consola</h3>
+    <div class="grupo-botones">
+      <button type="button" class="btn" (click)="imprimirEnConsola()">Imprimir Recorridos en Consola</button>
+      <button type="button" class="btn" (click)="cargarSerieInicial()">Cargar Serie por Defecto</button>
+      <button type="button" class="btn" (click)="limpiarArbol()">Limpiar Árbol</button>
+    </div>
+  </div>
+
+  <!-- Recorridos del Árbol -->
+  <div class="bloque-seccion">
+    <h3>Recorridos del Árbol (Traversals)</h3>
+    <div class="recorridos-lista">
+      <div class="item-recorrido">
+        <strong>In-Order (L-N-R):</strong>
+        <span>{{ recorridoInOrder().length > 0 ? recorridoInOrder().join(' -> ') : '(Vacío)' }}</span>
+      </div>
+      <div class="item-recorrido">
+        <strong>Pre-Order (N-L-R):</strong>
+        <span>{{ recorridoPreOrder().length > 0 ? recorridoPreOrder().join(' -> ') : '(Vacío)' }}</span>
+      </div>
+      <div class="item-recorrido">
+        <strong>Post-Order (L-R-N):</strong>
+        <span>{{ recorridoPostOrder().length > 0 ? recorridoPostOrder().join(' -> ') : '(Vacío)' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visualización D3 del Árbol -->
+  <div class="bloque-seccion">
+    <div class="cabecera-arbol">
+      <h3>Estructura Visual del Árbol (D3 Hierarchy / Tree)</h3>
+      <div class="estadisticas">
+        <span>Nodos: <strong>{{ totalNodos() }}</strong></span>
+        <span> | Altura: <strong>{{ alturaArbol() }}</strong></span>
+      </div>
+    </div>
+
+    @if (totalNodos() === 0) {
+    <p class="arbol-vacio">El árbol está vacío. Inserte valores para visualizar la estructura.</p>
+    }
+
+    <!-- Donde D3 genera el SVG -->
+    <div #treeContainer class="contenedor-svg-arbol"></div>
+  </div>
+</div>

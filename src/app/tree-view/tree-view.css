@@ -1,0 +1,140 @@
+.contenedor-tree {
+  max-width: 700px;
+  margin: 0 auto;
+  font-family: "Times New Roman", Times, serif;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.descripcion {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.bloque-seccion {
+  border: 1px solid #000000;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 4px;
+}
+
+.cabecera-arbol {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #000000;
+  margin-bottom: 12px;
+  padding-bottom: 4px;
+}
+
+.cabecera-arbol h3 {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.estadisticas {
+  font-size: 14px;
+}
+
+.campo {
+  margin-bottom: 12px;
+}
+
+.campo label {
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.fila-input-btn {
+  display: flex;
+  gap: 8px;
+}
+
+.fila-input-btn input {
+  flex: 1;
+  padding: 6px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15px;
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+}
+
+.grupo-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.btn {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15px;
+  padding: 6px 12px;
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #e8e8e8;
+}
+
+.btn:active {
+  background-color: #d0d0d0;
+}
+
+.caja-mensaje {
+  border: 1px solid #000000;
+  padding: 10px 12px;
+  margin-top: 12px;
+  background-color: #f7f7f7;
+  font-size: 15px;
+}
+
+.recorridos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.item-recorrido {
+  font-size: 15px;
+  padding: 4px 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+.item-recorrido:last-child {
+  border-bottom: none;
+}
+
+.item-recorrido strong {
+  margin-right: 6px;
+}
+
+.contenedor-svg-arbol {
+  width: 100%;
+  min-height: 250px;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.arbol-vacio {
+  text-align: center;
+  font-style: italic;
+  margin: 20px 0;
+}

@@ -1,12 +1,12 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { TreeView } from './tree-view/tree-view';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [TreeView],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('06-tree');
+  titulo = 'Árbol Binario de Búsqueda (Binary Search Tree)';
 }
