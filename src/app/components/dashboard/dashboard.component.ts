@@ -18,7 +18,7 @@ export class DashboardComponent {
     this.router.navigate(['/arbol-binario']);
   }
 
-  // Navega al Reto 07 (Sidebar con Árbol N-ario)
+  // Navega al Reto 07 (Árbol N-ario)
   irArbolNario(): void {
     this.router.navigate(['/arbol-nario']);
   }
