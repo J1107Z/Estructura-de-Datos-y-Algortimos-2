@@ -1,0 +1,28 @@
+<div class="contenedor-dashboard">
+  <!-- Barra superior con usuario logueado y botón de cerrar sesión a la derecha -->
+  <header class="barra-superior">
+    <div class="usuario-info">
+      <span>Usuario: <strong>{{ auth.usuario() }}</strong></span>
+    </div>
+    <div class="acciones-superior">
+      <button type="button" class="btn btn-logout" (click)="cerrarSesion()">
+        Cerrar sesión
+      </button>
+    </div>
+  </header>
+
+  <!-- Contenedor central con los dos botones solicitados centrados en la mitad -->
+  <main class="centro-opciones">
+    <div class="caja-seleccion">
+      <h2>Seleccione un Ejercicio</h2>
+      <div class="grupo-botones-centro">
+        <button type="button" class="btn btn-opcion" (click)="irArbolBinario()">
+          Reto 06 - Árbol Binario
+        </button>
+        <button type="button" class="btn btn-opcion" (click)="irArbolNario()">
+          Sidebar con Árbol N-ario
+        </button>
+      </div>
+    </div>
+  </main>
+</div>

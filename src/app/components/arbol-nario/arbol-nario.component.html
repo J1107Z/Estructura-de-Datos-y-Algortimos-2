@@ -1,0 +1,36 @@
+<div class="contenedor-pagina">
+  <!-- Barra superior con botón de casa y cerrar sesión arriba a la derecha -->
+  <header class="barra-superior">
+    <div class="info-cabecera">
+      <h2>Reto 07 - Sidebar con Árbol N-ario</h2>
+      <span class="usuario-tag">Usuario: <strong>{{ auth.usuario() }}</strong></span>
+    </div>
+
+    <div class="acciones-superior">
+      <button type="button" class="btn btn-casa" (click)="irAlInicio()" title="Volver al menú de selección de ejercicios">
+        <svg class="icono-casa" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </button>
+      <button type="button" class="btn btn-logout" (click)="cerrarSesion()">
+        Cerrar sesión
+      </button>
+    </div>
+  </header>
+
+  <!-- Área principal con el Sidebar -->
+  <main class="cuerpo-sidebar">
+    <aside class="sidebar-caja">
+      <ul class="menu-list">
+        @for (node of menuNodes(); track node.value.link) {
+        <app-sidebar-item
+          [node]="node"
+          [depth]="0"
+          (itemSelected)="onItemSelected($event)"
+        ></app-sidebar-item>
+        }
+      </ul>
+    </aside>
+  </main>
+</div>

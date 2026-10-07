@@ -1,0 +1,25 @@
+<li class="menu-item" [class.is-parent]="!node.isLeaf()">
+  <div
+    class="menu-row"
+    [class.active]="node.value.isActive"
+    [style.padding-left.px]="depth > 0 ? 38 : 22"
+    (click)="handleClick($event)"
+  >
+    <span class="title">{{ node.value.title }}</span>
+    @if (!node.isLeaf()) {
+    <span class="arrow">{{ node.expanded ? '▲' : '▼' }}</span>
+    }
+  </div>
+
+  @if (!node.isLeaf() && node.expanded) {
+  <ul class="submenu-list">
+    @for (child of node.children; track child.value.link) {
+    <app-sidebar-item
+      [node]="child"
+      [depth]="depth + 1"
+      (itemSelected)="onChildSelected($event)"
+    ></app-sidebar-item>
+    }
+  </ul>
+  }
+</li>
