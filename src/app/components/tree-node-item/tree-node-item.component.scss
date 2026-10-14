@@ -1,0 +1,80 @@
+$color-primario: #1e40af;
+$color-activo-bg: #dbeafe;
+$color-hover-bg: #f1f5f9;
+$color-texto: #0f172a;
+$color-texto-mutado: #64748b;
+$color-borde: #e2e8f0;
+
+.nodo-item {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .fila-nodo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    user-select: none;
+    font-size: 13px;
+    color: $color-texto;
+    transition: background-color 0.12s ease;
+
+    &:hover {
+      background-color: $color-hover-bg;
+    }
+
+    &.activo {
+      background-color: $color-activo-bg;
+      color: $color-primario;
+      font-weight: 600;
+    }
+
+    .btn-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 10px;
+      padding: 0;
+      width: 14px;
+      text-align: center;
+      color: $color-texto-mutado;
+      line-height: 1;
+
+      &:hover {
+        color: $color-texto;
+      }
+    }
+
+    .espacio-toggle {
+      display: inline-block;
+      width: 14px;
+      text-align: center;
+      font-size: 10px;
+      color: #94a3b8;
+    }
+
+    .icono {
+      font-size: 14px;
+    }
+
+    .nombre-nodo {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+
+  }
+
+  .lista-hijos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 1px dashed $color-borde;
+    margin-left: 14px;
+  }
+}

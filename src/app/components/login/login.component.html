@@ -1,0 +1,58 @@
+<div class="contenedor-auth">
+  <div class="tarjeta-auth">
+    <div class="cabecera">
+      <h2>Iniciar Sesión</h2>
+      <p class="subtitulo">Ingresa con tu cuenta de Firebase</p>
+    </div>
+
+    @if (mensajeError()) {
+      <div class="alerta-error">
+        {{ mensajeError() }}
+      </div>
+    }
+
+    <form (ngSubmit)="handleLogin()">
+      <div class="grupo-formulario">
+        <label for="email">Correo electrónico:</label>
+        <input
+          id="email"
+          type="email"
+          class="input-control w-100"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+          name="email"
+          placeholder="ejemplo@correo.com"
+          required
+        />
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="password">Contraseña:</label>
+        <input
+          id="password"
+          type="password"
+          class="input-control w-100"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          name="password"
+          placeholder="••••••••"
+          required
+        />
+      </div>
+
+      <div class="acciones">
+        <button type="submit" class="btn btn-primario w-100" [disabled]="cargando()">
+          @if (cargando()) {
+            Iniciando sesión...
+          } @else {
+            Ingresar
+          }
+        </button>
+      </div>
+
+      <div class="enlaces-adicionales">
+        <p>¿No tienes cuenta? <a routerLink="/register">Regístrate aquí</a></p>
+      </div>
+    </form>
+  </div>
+</div>

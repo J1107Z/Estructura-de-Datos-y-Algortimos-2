@@ -1,0 +1,168 @@
+// Estilos globales de la aplicacion
+$fuente-principal: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+// Variables Sass
+$color-primario: #1e40af;
+$color-primario-hover: #1d4ed8;
+$color-exito: #15803d;
+$color-exito-bg: #dcfce7;
+$color-peligro: #b91c1c;
+$color-peligro-bg: #fee2e2;
+$color-alerta: #b45309;
+$color-alerta-bg: #fef3c7;
+$color-fondo: #f1f5f9;
+$color-superficie: #ffffff;
+$color-borde: #cbd5e1;
+$color-texto: #0f172a;
+$color-texto-secundario: #64748b;
+$radio: 6px;
+
+// Mixins Sass
+@mixin flex-centrado {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-entre {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin sombra-suave {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+@mixin transicion {
+  transition: all 0.15s ease-in-out;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: $fuente-principal;
+  background-color: $color-fondo;
+  color: $color-texto;
+}
+
+a {
+  color: $color-primario;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Botones
+.btn {
+  @include transicion;
+  font-family: $fuente-principal;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: $radio;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  &.btn-primario {
+    background-color: $color-primario;
+    color: #ffffff;
+    border-color: $color-primario;
+    &:hover {
+      background-color: $color-primario-hover;
+    }
+  }
+
+  &.btn-secundario {
+    background-color: #ffffff;
+    color: $color-texto;
+    border-color: $color-borde;
+    &:hover {
+      background-color: #e2e8f0;
+    }
+  }
+
+  &.btn-peligro {
+    background-color: #ffffff;
+    color: $color-peligro;
+    border-color: #fca5a5;
+    &:hover {
+      background-color: $color-peligro;
+      color: #ffffff;
+    }
+  }
+
+  &.btn-exito {
+    background-color: $color-exito;
+    color: #ffffff;
+    border-color: $color-exito;
+    &:hover {
+      background-color: #166534;
+    }
+  }
+
+  &.btn-sm {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+// Campos de formulario
+.input-control {
+  font-family: $fuente-principal;
+  font-size: 14px;
+  padding: 8px 10px;
+  border: 1px solid $color-borde;
+  border-radius: $radio;
+  background-color: #ffffff;
+  color: $color-texto;
+  outline: none;
+  @include transicion;
+
+  &:focus {
+    border-color: $color-primario;
+    box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.15);
+  }
+}
+
+select.input-control {
+  cursor: pointer;
+}
+
+// Insignias para carpetas y archivos
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+
+  &.badge-carpeta {
+    background-color: #fef3c7;
+    color: #92400e;
+    border: 1px solid #fde68a;
+  }
+
+  &.badge-archivo {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border: 1px solid #bae6fd;
+  }
+}

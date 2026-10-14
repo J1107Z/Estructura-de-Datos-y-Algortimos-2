@@ -1,0 +1,72 @@
+<div class="contenedor-auth">
+  <div class="tarjeta-auth">
+    <div class="cabecera">
+      <h2>Crear Cuenta</h2>
+      <p class="subtitulo">Regístrate para crear y gestionar archivos</p>
+    </div>
+
+    @if (mensajeError()) {
+      <div class="alerta-error">
+        {{ mensajeError() }}
+      </div>
+    }
+
+    <form (ngSubmit)="handleRegister()">
+      <div class="grupo-formulario">
+        <label for="email">Correo electrónico:</label>
+        <input
+          id="email"
+          type="email"
+          class="input-control w-100"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+          name="email"
+          placeholder="ejemplo@correo.com"
+          required
+        />
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="password">Contraseña (mínimo 6 caracteres):</label>
+        <input
+          id="password"
+          type="password"
+          class="input-control w-100"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          name="password"
+          placeholder="••••••••"
+          required
+        />
+      </div>
+
+      <div class="grupo-formulario">
+        <label for="confirmPassword">Confirmar contraseña:</label>
+        <input
+          id="confirmPassword"
+          type="password"
+          class="input-control w-100"
+          [ngModel]="confirmPassword()"
+          (ngModelChange)="confirmPassword.set($event)"
+          name="confirmPassword"
+          placeholder="••••••••"
+          required
+        />
+      </div>
+
+      <div class="acciones">
+        <button type="submit" class="btn btn-primario w-100" [disabled]="cargando()">
+          @if (cargando()) {
+            Registrando...
+          } @else {
+            Crear Cuenta
+          }
+        </button>
+      </div>
+
+      <div class="enlaces-adicionales">
+        <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión</a></p>
+      </div>
+    </form>
+  </div>
+</div>

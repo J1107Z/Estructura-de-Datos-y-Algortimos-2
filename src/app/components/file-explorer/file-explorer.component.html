@@ -1,0 +1,210 @@
+<div class="contenedor-principal">
+  <!-- Barra superior de navegacion -->
+  <header class="barra-superior">
+    <div class="logo-titulo">
+      <span class="icono-logo">📂</span>
+      <h1>Gestión de Carpetas y Archivos</h1>
+    </div>
+
+    <div class="usuario-acciones">
+      <div class="info-usuario">
+        <span class="etiqueta-sesion">Usuario:</span>
+        <span class="correo-usuario">{{ authService.usuario() }}</span>
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-peligro btn-sm"
+        (click)="cerrarSesion()"
+      >
+        Cerrar Sesión
+      </button>
+    </div>
+  </header>
+
+
+
+  <!-- Mensajes de error de operacion -->
+  @if (fileSystemService.mensajeOperacion(); as msg) {
+    @if (msg.tipo === 'error') {
+      <div class="alerta-operacion alerta-error">
+        <span>{{ msg.texto }}</span>
+        <button
+          type="button"
+          class="btn-cerrar-alerta"
+          (click)="fileSystemService.limpiarMensaje()"
+        >
+          ✕
+        </button>
+      </div>
+    }
+  }
+
+  <!-- Cuerpo en dos paneles -->
+  <main class="paneles-layout">
+    <!-- Panel Izquierdo: Vista Jerarquica del Arbol N-ario -->
+    <aside class="panel-arbol">
+      <div class="panel-cabecera">
+        <h2>Árbol Jerárquico</h2>
+      </div>
+
+      <div class="arbol-contenedor">
+        @if (fileSystemService.tree().root; as rootNode) {
+          <ul class="raiz-lista">
+            <app-tree-node-item
+              [node]="rootNode"
+              [depth]="0"
+              [selectedId]="nodoActual()?.value?.id ?? null"
+              (nodeSelected)="seleccionarNodo($event)"
+            ></app-tree-node-item>
+          </ul>
+        }
+      </div>
+    </aside>
+
+    <!-- Panel Derecho: Detalle y Gestion del Elemento Seleccionado -->
+    <section class="panel-detalle">
+      <div class="panel-cabecera">
+        <div class="ubicacion-actual">
+          <span class="icono-tipo">
+            {{ nodoActual()?.value?.tipo === 'carpeta' ? '📁' : '📄' }}
+          </span>
+          <div>
+            <h2>{{ nodoActual()?.value?.nombre || 'Raíz' }}</h2>
+            <p class="meta-info">
+              Creado por: <strong>{{ nodoActual()?.value?.creadoPor }}</strong> •
+              Fecha: {{ formatearFecha(nodoActual()?.value?.fechaCreacion || '') }}
+            </p>
+          </div>
+        </div>
+
+        @if (nodoActual() && nodoActual()?.value?.id !== 'root') {
+          <button
+            type="button"
+            class="btn btn-peligro btn-sm"
+            (click)="handleEliminar(nodoActual()!)"
+          >
+            Eliminar Selección
+          </button>
+        }
+      </div>
+
+      <!-- Restriccion clave: los archivos no pueden tener hijos -->
+      @if (!puedeCrearEnSeleccionado()) {
+        <div class="aviso-archivo">
+          <strong>Restricción:</strong> El elemento seleccionado es un archivo. Los archivos no pueden albergar hijos. Selecciona una carpeta en el árbol para agregar nuevos elementos dentro de ella.
+        </div>
+      } @else {
+        <!-- Formularios de creacion dentro de la carpeta actual -->
+        <div class="formularios-creacion">
+          <!-- Formulario nueva carpeta -->
+          <div class="caja-formulario">
+            <h3>Nueva Carpeta</h3>
+            <form (ngSubmit)="handleCrearCarpeta()" class="fila-formulario">
+              <input
+                type="text"
+                class="input-control flex-1"
+                placeholder="Nombre de la carpeta..."
+                [ngModel]="nombreNuevaCarpeta()"
+                (ngModelChange)="nombreNuevaCarpeta.set($event)"
+                name="nombreCarpeta"
+                required
+              />
+              <button
+                type="submit"
+                class="btn btn-primario"
+                [disabled]="creandoCarpeta() || !nombreNuevaCarpeta().trim()"
+              >
+                + Carpeta
+              </button>
+            </form>
+          </div>
+
+          <!-- Formulario nuevo archivo -->
+          <div class="caja-formulario">
+            <h3>Nuevo Archivo</h3>
+            <form (ngSubmit)="handleCrearArchivo()" class="fila-formulario">
+              <input
+                type="text"
+                class="input-control flex-1"
+                placeholder="Nombre del archivo..."
+                [ngModel]="nombreNuevoArchivo()"
+                (ngModelChange)="nombreNuevoArchivo.set($event)"
+                name="nombreArchivo"
+                required
+              />
+              <select
+                class="input-control"
+                [ngModel]="extensionArchivo()"
+                (ngModelChange)="extensionArchivo.set($event)"
+                name="extensionArchivo"
+              >
+                @for (ext of extensionesDisponibles; track ext) {
+                  <option [value]="ext">{{ ext }}</option>
+                }
+              </select>
+              <button
+                type="submit"
+                class="btn btn-exito"
+                [disabled]="creandoArchivo() || !nombreNuevoArchivo().trim()"
+              >
+                + Archivo
+              </button>
+            </form>
+          </div>
+        </div>
+      }
+
+      <!-- Contenido de la carpeta seleccionada -->
+      <div class="seccion-contenido">
+        <h3>Contenido de "{{ nodoActual()?.value?.nombre }}"</h3>
+
+        @if (hijosNodoActual().length === 0) {
+          <div class="vacio">
+            <p>Esta carpeta no contiene elementos todavía.</p>
+          </div>
+        } @else {
+          <div class="tabla-contenedor">
+            <table class="tabla-elementos">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Creado Por (Validador)</th>
+                  <th>Fecha</th>
+                  <th class="texto-derecha">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (hijo of hijosNodoActual(); track hijo.value.id) {
+                  <tr (click)="seleccionarNodo(hijo)" class="fila-clickeable">
+                    <td>
+                      <span class="icono-tabla">
+                        {{ hijo.value.tipo === 'carpeta' ? '📁' : '📄' }}
+                      </span>
+                      <strong>{{ hijo.value.nombre }}</strong>
+                    </td>
+                    <td>
+                      <code class="codigo-correo">{{ hijo.value.creadoPor }}</code>
+                    </td>
+                    <td class="texto-fecha">
+                      {{ formatearFecha(hijo.value.fechaCreacion) }}
+                    </td>
+                    <td class="texto-derecha" (click)="$event.stopPropagation()">
+                      <button
+                        type="button"
+                        class="btn btn-peligro btn-sm"
+                        (click)="handleEliminar(hijo)"
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+    </section>
+  </main>
+</div>

@@ -1,0 +1,46 @@
+<li class="nodo-item">
+  <div
+    class="fila-nodo"
+    [class.activo]="node.value.id === selectedId"
+    [class.es-carpeta]="node.value.tipo === 'carpeta'"
+    [class.es-archivo]="node.value.tipo === 'archivo'"
+    [style.padding-left.px]="depth * 16 + 8"
+    (click)="onItemClick($event)"
+  >
+    @if (node.value.tipo === 'carpeta') {
+      <button
+        type="button"
+        class="btn-toggle"
+        (click)="toggleExpand($event)"
+        [attr.aria-label]="node.expanded ? 'Colapsar carpeta' : 'Expandir carpeta'"
+      >
+        @if (node.children.length > 0) {
+          {{ node.expanded ? '▼' : '▶' }}
+        } @else {
+          •
+        }
+      </button>
+      <span class="icono">📁</span>
+    } @else {
+      <span class="espacio-toggle">•</span>
+      <span class="icono">📄</span>
+    }
+
+    <span class="nombre-nodo">{{ node.value.nombre }}</span>
+
+
+  </div>
+
+  @if (node.value.tipo === 'carpeta' && node.expanded && node.children.length > 0) {
+    <ul class="lista-hijos">
+      @for (child of node.children; track child.value.id) {
+        <app-tree-node-item
+          [node]="child"
+          [depth]="depth + 1"
+          [selectedId]="selectedId"
+          (nodeSelected)="onChildSelected($event)"
+        ></app-tree-node-item>
+      }
+    </ul>
+  }
+</li>
