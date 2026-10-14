@@ -1,0 +1,72 @@
+<div class="contenedor-registro">
+  <div class="tarjeta-registro">
+    <div class="cabecera-tarjeta">
+      <h2>Crear Cuenta</h2>
+      <p class="subtitulo">Registro de nuevo usuario con Firebase</p>
+    </div>
+
+    @if (mensajeError()) {
+      <div class="mensaje-error">
+        {{ mensajeError() }}
+      </div>
+    }
+
+    <form (ngSubmit)="handleRegister()">
+      <div class="campo">
+        <label for="reg-email">Correo electrónico:</label>
+        <input
+          id="reg-email"
+          type="email"
+          class="input-control"
+          [ngModel]="email()"
+          (ngModelChange)="email.set($event)"
+          name="email"
+          placeholder="ejemplo@correo.com"
+          required
+        />
+      </div>
+
+      <div class="campo">
+        <label for="reg-password">Contraseña (mínimo 6 caracteres):</label>
+        <input
+          id="reg-password"
+          type="password"
+          class="input-control"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+          name="password"
+          placeholder="••••••••"
+          required
+        />
+      </div>
+
+      <div class="campo">
+        <label for="reg-confirm">Confirmar contraseña:</label>
+        <input
+          id="reg-confirm"
+          type="password"
+          class="input-control"
+          [ngModel]="confirmPassword()"
+          (ngModelChange)="confirmPassword.set($event)"
+          name="confirmPassword"
+          placeholder="••••••••"
+          required
+        />
+      </div>
+
+      <div class="acciones">
+        <button type="submit" class="btn btn-primario w-100" [disabled]="cargando()">
+          @if (cargando()) {
+            Registrando...
+          } @else {
+            Registrarse
+          }
+        </button>
+      </div>
+
+      <div class="enlace-login">
+        <p>¿Ya tienes una cuenta? <a routerLink="/login">Inicia sesión aquí</a></p>
+      </div>
+    </form>
+  </div>
+</div>

@@ -7,23 +7,24 @@ import { AuthService } from '../../services/auth.service';
   selector: 'app-dashboard',
   imports: [CommonModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css',
+  styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   auth = inject(AuthService);
   private router = inject(Router);
 
-  // Navega al Reto 06 (Árbol Binario)
+  irTareas(): void {
+    this.router.navigate(['/tasks']);
+  }
+
   irArbolBinario(): void {
     this.router.navigate(['/arbol-binario']);
   }
 
-  // Navega al Reto 07 (Árbol N-ario)
   irArbolNario(): void {
     this.router.navigate(['/arbol-nario']);
   }
 
-  // Cierra sesión
   cerrarSesion(): void {
     this.auth.salir();
   }

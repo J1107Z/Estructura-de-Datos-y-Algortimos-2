@@ -1,0 +1,226 @@
+<div class="contenedor-pagina">
+  <!-- Barra superior -->
+  <header class="barra-superior">
+    <div class="info-cabecera">
+      <h2>Reto 09 - Gestor de tareas</h2>
+      <div class="usuario-tag">
+        <span>Usuario:</span>
+        <span class="badge-usuario">{{ authHook.usuario() }}</span>
+      </div>
+    </div>
+
+    <div class="acciones-superior">
+      <a routerLink="/dashboard" class="btn btn-secundario btn-sm btn-casa" title="Volver al panel principal">
+        <svg class="icono-casa" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </a>
+      <button type="button" class="btn btn-peligro btn-sm" (click)="cerrarSesion()">
+        Cerrar sesión
+      </button>
+    </div>
+  </header>
+
+  <main class="cuerpo-tareas">
+    @if (mensajeFeedback()) {
+      <div class="mensaje-aviso">
+        {{ mensajeFeedback() }}
+      </div>
+    }
+
+    <!-- 1. Formulario de creacion de tarea -->
+    <section class="bloque-seccion">
+      <div class="cabecera-seccion">
+        <h3>1. Crear Nueva Tarea</h3>
+      </div>
+      <form (ngSubmit)="agregarNuevaTarea()" class="formulario-tarea">
+        <div class="campo">
+          <label for="input-titulo">Título de la tarea:</label>
+          <input
+            id="input-titulo"
+            type="text"
+            class="input-control"
+            placeholder="Ej: Estudiar para el examen de estructuras"
+            [ngModel]="nuevoTitulo()"
+            (ngModelChange)="nuevoTitulo.set($event)"
+            name="titulo"
+            required
+          />
+        </div>
+
+        <div class="campo">
+          <label for="input-desc">Descripción (opcional):</label>
+          <input
+            id="input-desc"
+            type="text"
+            class="input-control"
+            placeholder="Ej: Repasar conceptos de árboles y Firebase"
+            [ngModel]="nuevaDescripcion()"
+            (ngModelChange)="nuevaDescripcion.set($event)"
+            name="descripcion"
+          />
+        </div>
+
+        <div class="acciones-form">
+          <button type="submit" class="btn btn-primario" [disabled]="tasksHook.isPending()">
+            Agregar Tarea
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- 2. Filtros y resumen -->
+    <section class="bloque-seccion">
+      <div class="cabecera-seccion">
+        <h3>2. Lista de Tareas</h3>
+      </div>
+
+      <div class="barra-filtros">
+        <div class="grupo-filtros">
+          <span class="label-filtro">Filtrar:</span>
+          <button
+            type="button"
+            class="btn-filtro"
+            [class.activo]="filtroActual() === 'todas'"
+            (click)="filtroActual.set('todas')"
+          >
+            Todas ({{ totalTareas() }})
+          </button>
+          <button
+            type="button"
+            class="btn-filtro filtro-pendiente"
+            [class.activo]="filtroActual() === 'pendientes'"
+            (click)="filtroActual.set('pendientes')"
+          >
+            Pendientes ({{ totalPendientes() }})
+          </button>
+          <button
+            type="button"
+            class="btn-filtro filtro-completada"
+            [class.activo]="filtroActual() === 'completadas'"
+            (click)="filtroActual.set('completadas')"
+          >
+            Completadas ({{ totalCompletadas() }})
+          </button>
+        </div>
+
+        <div class="busqueda-caja">
+          <input
+            id="input-busqueda"
+            type="text"
+            class="input-control input-sm"
+            placeholder="Buscar por texto..."
+            [ngModel]="busqueda()"
+            (ngModelChange)="busqueda.set($event)"
+          />
+        </div>
+      </div>
+
+      <!-- Listado de tareas -->
+      <div class="contenedor-lista">
+        @if (tasksHook.isPending() && tareasFiltradas().length === 0) {
+          <p class="texto-vacio">Cargando tareas desde Firebase...</p>
+        } @else if (tareasFiltradas().length === 0) {
+          <p class="texto-vacio">No hay tareas para mostrar en esta categoría.</p>
+        } @else {
+          <table class="tabla-tareas">
+            <thead>
+              <tr>
+                <th style="width: 55px; text-align: center;">Estado</th>
+                <th>Título</th>
+                <th>Descripción</th>
+                <th style="width: 120px; text-align: center;">Condición</th>
+                <th style="width: 160px; text-align: center;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (tarea of tareasFiltradas(); track tarea.id) {
+                <tr [class.fila-completada]="tarea.completed">
+                  @if (tareaEditandoId() === tarea.id) {
+                    <!-- Modo edicion -->
+                    <td colspan="5" class="celda-edicion">
+                      <div class="fila-edicion">
+                        <input
+                          type="text"
+                          class="input-control input-sm"
+                          [ngModel]="tituloEditado()"
+                          (ngModelChange)="tituloEditado.set($event)"
+                          placeholder="Título"
+                        />
+                        <input
+                          type="text"
+                          class="input-control input-sm"
+                          [ngModel]="descripcionEditada()"
+                          (ngModelChange)="descripcionEditada.set($event)"
+                          placeholder="Descripción"
+                        />
+                        <button
+                          type="button"
+                          class="btn btn-exito btn-sm"
+                          (click)="guardarEdicion(tarea.id!)"
+                        >
+                          Guardar
+                        </button>
+                        <button
+                          type="button"
+                          class="btn btn-secundario btn-sm"
+                          (click)="cancelarEdicion()"
+                        >
+                          Cancelar
+                        </button>
+                      </div>
+                    </td>
+                  } @else {
+                    <!-- Modo lectura -->
+                    <td style="text-align: center;">
+                      <input
+                        type="checkbox"
+                        class="checkbox-tarea"
+                        [checked]="tarea.completed"
+                        (change)="alternarEstado(tarea)"
+                        title="Alternar estado"
+                      />
+                    </td>
+                    <td>
+                      <span class="titulo-tarea" [class.tachado]="tarea.completed">{{ tarea.title }}</span>
+                    </td>
+                    <td>
+                      <span class="desc-tarea">{{ tarea.description || '-' }}</span>
+                    </td>
+                    <td style="text-align: center;">
+                      <span
+                        class="badge-condicion"
+                        [class.badge-completada]="tarea.completed"
+                        [class.badge-pendiente]="!tarea.completed"
+                      >
+                        {{ tarea.completed ? 'Completada' : 'Pendiente' }}
+                      </span>
+                    </td>
+                    <td style="text-align: center;">
+                      <button
+                        type="button"
+                        class="btn btn-secundario btn-sm"
+                        (click)="iniciarEdicion(tarea)"
+                      >
+                        Editar
+                      </button>
+                      <button
+                        type="button"
+                        class="btn btn-peligro btn-sm"
+                        (click)="borrarTarea(tarea.id)"
+                        style="margin-left: 6px;"
+                      >
+                        Eliminar
+                      </button>
+                    </td>
+                  }
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
+      </div>
+    </section>
+  </main>
+</div>

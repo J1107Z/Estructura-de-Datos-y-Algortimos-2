@@ -1,17 +1,17 @@
 import '@angular/compiler';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { AuthService } from './services/auth.service';
 import { BinaryTree } from './models/binary-tree';
 import { NaryTree } from './models/nary-tree';
 import { App } from './app';
 
-describe('Challenge 08 - Pruebas Generales', () => {
+describe('Challenge 09 - Pruebas Generales', () => {
   it('debe instanciar App correctamente', () => {
     const app = new App();
     expect(app).toBeTruthy();
   });
 
-  describe('AuthService', () => {
+  describe('AuthService (Firebase Auth)', () => {
     let authService: AuthService;
 
     beforeEach(() => {
@@ -19,25 +19,22 @@ describe('Challenge 08 - Pruebas Generales', () => {
       authService.usuario.set(null);
     });
 
-    it('inicia sesión con credenciales correctas user@mail.com y 123', () => {
-      const resultado = authService.entrar('user@mail.com', '123');
-      expect(resultado).toBe(true);
-      expect(authService.estaLogueado()).toBe(true);
-      expect(authService.usuario()).toBe('user@mail.com');
-    });
-
-    it('rechaza credenciales incorrectas', () => {
-      const resultado = authService.entrar('admin@mail.com', 'password');
-      expect(resultado).toBe(false);
+    it('inicia con usuario nulo', () => {
       expect(authService.estaLogueado()).toBe(false);
       expect(authService.usuario()).toBeNull();
     });
 
-    it('cierra sesión y limpia el usuario activo', () => {
-      authService.entrar('user@mail.com', '123');
+    it('permite actualizar el usuario activo con signals', () => {
+      authService.usuario.set('test@correo.com');
+      expect(authService.estaLogueado()).toBe(true);
+      expect(authService.usuario()).toBe('test@correo.com');
+    });
+
+    it('cierra sesión y limpia el usuario activo', async () => {
+      authService.usuario.set('test@correo.com');
       expect(authService.estaLogueado()).toBe(true);
 
-      authService.salir();
+      await authService.salir();
       expect(authService.estaLogueado()).toBe(false);
       expect(authService.usuario()).toBeNull();
     });
@@ -69,7 +66,7 @@ describe('Challenge 08 - Pruebas Generales', () => {
       expect(tree.height()).toBe(3);
 
       const visitados: string[] = [];
-      tree.dfs(node => visitados.push(node.value));
+      tree.dfs((node) => visitados.push(node.value));
       expect(visitados).toEqual(['Raíz', 'Hijo 1', 'Subhijo 1.1', 'Hijo 2']);
     });
   });

@@ -2,25 +2,31 @@
   <!-- Barra superior con usuario logueado y botón de cerrar sesión a la derecha -->
   <header class="barra-superior">
     <div class="usuario-info">
-      <span>Usuario: <strong>{{ auth.usuario() }}</strong></span>
+      <span class="etiqueta-usuario">Usuario:</span>
+      <span class="badge-usuario">{{ auth.usuario() }}</span>
     </div>
     <div class="acciones-superior">
-      <button type="button" class="btn btn-logout" (click)="cerrarSesion()">
+      <button type="button" class="btn btn-peligro btn-sm" (click)="cerrarSesion()">
         Cerrar sesión
       </button>
     </div>
   </header>
 
-  <!-- Contenedor central con los dos botones solicitados centrados en la mitad -->
+  <!-- Contenedor central con los botones de selección centrados -->
   <main class="centro-opciones">
     <div class="caja-seleccion">
-      <h2>Seleccione un Ejercicio</h2>
+      <h2>Panel de Proyectos</h2>
+      <p class="subtitulo-panel">Selecciona el reto al que deseas ingresar</p>
+
       <div class="grupo-botones-centro">
-        <button type="button" class="btn btn-opcion" (click)="irArbolBinario()">
+        <button type="button" class="btn btn-secundario btn-opcion" (click)="irArbolBinario()">
           Reto 06 - Árbol Binario
         </button>
-        <button type="button" class="btn btn-opcion" (click)="irArbolNario()">
+        <button type="button" class="btn btn-secundario btn-opcion" (click)="irArbolNario()">
           Reto 07 - Árbol N-ario
+        </button>
+        <button type="button" class="btn btn-primario btn-opcion" (click)="irTareas()">
+          Reto 09 - Gestor de tareas
         </button>
       </div>
     </div>

@@ -1,0 +1,146 @@
+// Configuracion Sass con paleta de colores moderna y limpia
+$fuente-principal: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+// Variables Sass de color
+$color-primario: #2563eb;
+$color-primario-hover: #1d4ed8;
+$color-exito: #16a34a;
+$color-exito-bg: #dcfce7;
+$color-exito-texto: #15803d;
+$color-alerta: #d97706;
+$color-alerta-bg: #fef3c7;
+$color-alerta-texto: #92400e;
+$color-peligro: #dc2626;
+$color-peligro-bg: #fee2e2;
+$color-fondo: #f8fafc;
+$color-tarjeta: #ffffff;
+$color-borde: #e2e8f0;
+$color-texto-principal: #0f172a;
+$color-texto-secundario: #64748b;
+$radio-borde: 6px;
+
+// Mixins Sass
+@mixin flex-centrado {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-entre {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin sombra-suave {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+}
+
+@mixin transicion {
+  transition: all 0.15s ease-in-out;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background-color: $color-fondo;
+  color: $color-texto-principal;
+  font-family: $fuente-principal;
+}
+
+a {
+  color: $color-primario;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-primario-hover;
+    text-decoration: underline;
+  }
+}
+
+// Botones reutilizables con Sass
+.btn {
+  @include transicion;
+  font-family: $fuente-principal;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: $radio-borde;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  &.btn-primario {
+    background-color: $color-primario;
+    color: #ffffff;
+    border-color: $color-primario;
+
+    &:hover {
+      background-color: $color-primario-hover;
+      border-color: $color-primario-hover;
+    }
+  }
+
+  &.btn-secundario {
+    background-color: #ffffff;
+    color: $color-texto-principal;
+    border-color: #cbd5e1;
+
+    &:hover {
+      background-color: #f1f5f9;
+      border-color: #94a3b8;
+    }
+  }
+
+  &.btn-peligro {
+    background-color: #ffffff;
+    color: $color-peligro;
+    border-color: #fca5a5;
+
+    &:hover {
+      background-color: $color-peligro;
+      color: #ffffff;
+    }
+  }
+
+  &.btn-exito {
+    background-color: $color-exito;
+    color: #ffffff;
+    border-color: $color-exito;
+
+    &:hover {
+      background-color: #15803d;
+    }
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.input-control {
+  font-family: $fuente-principal;
+  font-size: 15px;
+  padding: 9px 12px;
+  border: 1px solid $color-borde;
+  border-radius: $radio-borde;
+  background-color: #ffffff;
+  color: $color-texto-principal;
+  outline: none;
+  @include transicion;
+
+  &:focus {
+    border-color: $color-primario;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  }
+}
