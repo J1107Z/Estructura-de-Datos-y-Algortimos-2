@@ -1,0 +1,76 @@
+.contenedor-auth {
+  max-width: 360px;
+  margin: 48px auto;
+  padding: 24px;
+  background: #eeeeee;
+  border: 1px solid #000000;
+}
+
+.selector-modo {
+  display: flex;
+  border: 1px solid #000000;
+  margin-bottom: 20px;
+}
+
+.selector-modo button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: #dcdcdc;
+  color: #000000;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.selector-modo button.activo {
+  background: #000000;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+h1 {
+  margin: 0 0 6px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.subtitulo {
+  margin: 0 0 16px;
+  font-size: 15px;
+  text-align: center;
+  color: #333333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input {
+  padding: 9px 10px;
+  border: 1px solid #000000;
+  background: #ffffff;
+  color: #000000;
+  font-size: 16px;
+}
+
+.btn-principal {
+  padding: 10px 12px;
+  border: 1px solid #000000;
+  background: #000000;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.mensaje {
+  margin: 14px 0 0;
+  padding: 8px;
+  text-align: center;
+  background: #ffffff;
+  border: 1px solid #000000;
+  color: #000000;
+  font-size: 15px;
+}

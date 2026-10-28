@@ -1,0 +1,53 @@
+<div class="contenedor-auth">
+  <div class="selector-modo">
+    <button
+      type="button"
+      [class.activo]="modo() === 'entrar'"
+      (click)="cambiarModo('entrar')"
+    >
+      Entrar
+    </button>
+    <button
+      type="button"
+      [class.activo]="modo() === 'crear'"
+      (click)="cambiarModo('crear')"
+    >
+      Crear cuenta
+    </button>
+  </div>
+
+  @if (modo() === 'entrar') {
+    <h1>Iniciar Sesión</h1>
+    <p class="subtitulo">Ingresa con tu cuenta existente</p>
+  } @else {
+    <h1>Crear Cuenta Nueva</h1>
+    <p class="subtitulo">Registra un correo y una contraseña (mínimo 6 caracteres)</p>
+  }
+
+  <form (ngSubmit)="enviar()">
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="email"
+      placeholder="Correo"
+      required
+    >
+    <input
+      type="password"
+      name="clave"
+      [(ngModel)]="clave"
+      placeholder="Contraseña"
+      required
+    >
+
+    @if (modo() === 'entrar') {
+      <button type="submit" class="btn-principal">Entrar a mis tareas</button>
+    } @else {
+      <button type="submit" class="btn-principal">Registrar cuenta</button>
+    }
+  </form>
+
+  @if (msg()) {
+    <p class="mensaje">{{ msg() }}</p>
+  }
+</div>
