@@ -1,0 +1,257 @@
+.contenedor-grafo {
+  max-width: 820px;
+  margin: 0 auto;
+  font-family: "Times New Roman", Times, serif;
+  color: #000000;
+  background-color: #ffffff;
+}
+
+.descripcion {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.caja-mensaje {
+  border: 1px solid #000000;
+  background-color: #f7f7f7;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.bloque-seccion {
+  border: 1px solid #000000;
+  padding: 18px;
+  margin-bottom: 22px;
+  background-color: #ffffff;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #000000;
+  padding-bottom: 4px;
+}
+
+h4 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+.cabecera-seccion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #000000;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+}
+
+.cabecera-seccion h3 {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.ayuda-seccion {
+  font-size: 13px;
+  color: #444444;
+  margin-top: 0;
+  margin-bottom: 14px;
+}
+
+.leyenda {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 12px;
+  font-family: sans-serif;
+  font-weight: 600;
+  border: 1px solid #000000;
+  border-radius: 3px;
+}
+
+.badge-ciudad {
+  background-color: #dbeafe;
+  color: #1e40af;
+}
+
+.badge-persona {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.badge-enlace-ciudad {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  font-style: italic;
+}
+
+.badge-enlace-amistad {
+  background-color: #f1f5f9;
+  color: #334155;
+}
+
+.fila-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.input-select,
+.input-texto {
+  font-family: inherit;
+  font-size: 14px;
+  padding: 6px 10px;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  outline: none;
+}
+
+.input-select {
+  min-width: 160px;
+}
+
+.resultado-ciudad {
+  background-color: #fafafa;
+  border: 1px dashed #000000;
+  padding: 12px 16px;
+  margin-top: 10px;
+}
+
+.resultado-ciudad h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.lista-habitantes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item-habitante {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px dotted #ccc;
+  font-size: 14px;
+}
+
+.item-habitante:last-child {
+  border-bottom: none;
+}
+
+.texto-vacio {
+  font-style: italic;
+  color: #666;
+  margin: 0;
+  font-size: 13px;
+}
+
+.contenedor-svg-d3 {
+  border: 1px solid #000000;
+  background-color: #fcfcfc;
+  min-height: 560px;
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.grupo-botones {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.sub-bloque {
+  border-top: 1px dotted #999;
+  padding-top: 10px;
+  margin-top: 12px;
+}
+
+.sub-bloque:first-of-type {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.fila-input-btn {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.fila-input-btn input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.grid-formulario {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.grid-formulario input,
+.grid-formulario select {
+  flex: 1;
+  min-width: 150px;
+}
+
+.btn {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 6px 14px;
+  border: 1px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.btn-primario {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.btn-primario:hover {
+  background-color: #333333;
+}
+
+.btn-subtle {
+  font-family: inherit;
+  font-size: 12px;
+  padding: 2px 6px;
+  border: 1px solid #777;
+  background-color: #fff;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.btn-subtle:hover {
+  background-color: #eee;
+}

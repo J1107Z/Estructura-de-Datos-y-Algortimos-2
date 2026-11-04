@@ -1,0 +1,172 @@
+<div class="contenedor-grafo">
+  <p class="descripcion">
+    <strong>Grafo de Amigos y Ciudades:</strong> Grafo no dirigido implementado con lista de adyacencia y visualizado en pantalla con <code>d3-graph</code>.
+  </p>
+
+  <!-- Estado de Operaciones -->
+  @if (mensajeOperacion()) {
+  <div class="caja-mensaje">
+    <strong>Estado:</strong> {{ mensajeOperacion() }}
+  </div>
+  }
+
+  <!-- Sección 1: Consultar personas en una ciudad particular (Requisito clave) -->
+  <div class="bloque-seccion">
+    <h3>1. Personas que Viven en una Ciudad Particular</h3>
+    <p class="ayuda-seccion">
+      Seleccione una ciudad para listar sus habitantes y consultar el resultado por consola (<code>printPeopleInCity</code>).
+    </p>
+
+    <div class="fila-control">
+      <label for="select-ciudad"><strong>Ciudad:</strong></label>
+      <select
+        id="select-ciudad"
+        [ngModel]="ciudadSeleccionada()"
+        (ngModelChange)="consultarPersonasEnCiudad($event)"
+        class="input-select"
+      >
+        @for (c of ciudades(); track c) {
+        <option [value]="c">{{ c }}</option>
+        }
+      </select>
+
+      <button
+        type="button"
+        class="btn btn-primario"
+        (click)="consultarPersonasEnCiudad(ciudadSeleccionada())"
+      >
+        Consultar e Imprimir en Consola
+      </button>
+    </div>
+
+    <div class="resultado-ciudad">
+      <h4>Habitantes de {{ ciudadSeleccionada() || 'la ciudad' }}:</h4>
+      @if (personasEnCiudad().length > 0) {
+      <ul class="lista-habitantes">
+        @for (p of personasEnCiudad(); track p.name) {
+        <li class="item-habitante">
+          <span class="icono">👤</span>
+          <strong>{{ p.name }}</strong> — Edad: {{ p.age }} años
+          <button
+            type="button"
+            class="btn-subtle"
+            (click)="imprimirAdyacencia(p.name)"
+            title="Ver adyacencia en consola"
+          >
+            Ver conexiones
+          </button>
+        </li>
+        }
+      </ul>
+      } @else {
+      <p class="texto-vacio">No hay personas registradas en esta ciudad aún.</p>
+      }
+    </div>
+  </div>
+
+  <!-- Sección 2: Visualización con D3 (d3-graph en pantalla) -->
+  <div class="bloque-seccion">
+    <div class="cabecera-seccion">
+      <h3>2. Visualización con D3 (d3-graph en Pantalla)</h3>
+      <div class="leyenda">
+        <span class="badge badge-ciudad">🏙 Ciudad</span>
+        <span class="badge badge-persona">👤 Persona / Amigo</span>
+        <span class="badge badge-enlace-ciudad">┄ Residencia (Ciudad ↔ Persona)</span>
+        <span class="badge badge-enlace-amistad">— Amistad (Amigo ↔ Amigo)</span>
+      </div>
+    </div>
+
+    <p class="ayuda-seccion">
+      Interactúe con el grafo: arrastre los nodos para moverlos libremente o haga clic en una ciudad para seleccionarla.
+    </p>
+
+    <div #graphContainer class="contenedor-svg-d3"></div>
+  </div>
+
+  <!-- Sección 3: Métodos del Grafo -->
+  <div class="bloque-seccion">
+    <h3>3. Métodos del Grafo por Consola</h3>
+    <div class="grupo-botones">
+      <button type="button" class="btn" (click)="imprimirGrafoConsola()">
+        Imprimir Grafo Completo en Consola (printGraph)
+      </button>
+      <button type="button" class="btn" (click)="cargarDatosIniciales()">
+        Restablecer Datos Iniciales
+      </button>
+    </div>
+  </div>
+
+  <!-- Sección 4: Agregar Nodos y Aristas -->
+  <div class="bloque-seccion">
+    <h3>4. Agregar Nodos y Aristas al Grafo</h3>
+
+    <!-- Agregar Ciudad -->
+    <div class="sub-bloque">
+      <h4>Agregar Nueva Ciudad</h4>
+      <div class="fila-input-btn">
+        <input
+          type="text"
+          placeholder="Nombre de la ciudad (Ej: Cali)"
+          [(ngModel)]="nuevaCiudadNombre"
+          (keyup.enter)="agregarCiudad()"
+          class="input-texto"
+        />
+        <button type="button" class="btn" (click)="agregarCiudad()">
+          Agregar Ciudad
+        </button>
+      </div>
+    </div>
+
+    <!-- Agregar Persona y vincular a Ciudad -->
+    <div class="sub-bloque">
+      <h4>Agregar Nueva Persona (Amigo) y Referenciar a Ciudad</h4>
+      <div class="grid-formulario">
+        <input
+          type="text"
+          placeholder="Nombre (Ej: Juan)"
+          [(ngModel)]="nuevaPersonaNombre"
+          class="input-texto"
+        />
+        <input
+          type="number"
+          placeholder="Edad (Ej: 22)"
+          [(ngModel)]="nuevaPersonaEdad"
+          class="input-texto"
+        />
+        <select [(ngModel)]="nuevaPersonaCiudad" class="input-select">
+          <option value="">Seleccionar Ciudad de Residencia</option>
+          @for (c of ciudades(); track c) {
+          <option [value]="c">{{ c }}</option>
+          }
+        </select>
+        <button type="button" class="btn btn-primario" (click)="agregarPersona()">
+          Agregar y Conectar a Ciudad
+        </button>
+      </div>
+    </div>
+
+    <!-- Conectar dos Amigos -->
+    <div class="sub-bloque">
+      <h4>Conectar Amistad Entre Dos Personas (addEdge)</h4>
+      <div class="grid-formulario">
+        <select [(ngModel)]="amigo1" class="input-select">
+          <option value="">Seleccionar Persona 1</option>
+          @for (p of personas(); track p.name) {
+          <option [value]="p.name">{{ p.name }} ({{ p.age }} años)</option>
+          }
+        </select>
+
+        <select [(ngModel)]="amigo2" class="input-select">
+          <option value="">Seleccionar Persona 2</option>
+          @for (p of personas(); track p.name) {
+          <option [value]="p.name">{{ p.name }} ({{ p.age }} años)</option>
+          }
+        </select>
+
+        <button type="button" class="btn" (click)="conectarAmigos()">
+          Conectar Amistad
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
