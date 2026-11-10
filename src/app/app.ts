@@ -1,12 +1,10 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { SearchEngine } from './components/search-engine/search-engine';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [SearchEngine],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrl: './app.css',
 })
-export class App {
-  protected readonly title = signal('12-Tries');
-}
+export class App {}

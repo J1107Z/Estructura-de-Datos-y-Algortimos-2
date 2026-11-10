@@ -1,1 +1,133 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: "Times New Roman", Times, serif;
+  background-color: #f4f4f5;
+  color: #1f1f1f;
+}
+
+h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin: 0;
+  color: #5e111e;
+}
+
+h4 {
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0;
+  color: #2b2b2b;
+}
+
+.bloque-seccion {
+  background-color: #ffffff;
+  border: 1px solid #d4d4d8;
+  border-radius: 8px;
+  padding: 22px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.btn {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15px;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.btn-primario {
+  background-color: #7a1828;
+  color: #ffffff;
+  border-color: #7a1828;
+}
+
+.btn-primario:hover {
+  background-color: #5e111e;
+}
+
+.input-control {
+  width: 100%;
+  padding: 9px 12px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 15px;
+  color: #1f1f1f;
+  background-color: #ffffff;
+  border: 1px solid #c4c4c8;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.input-control:focus {
+  border-color: #7a1828;
+  box-shadow: 0 0 0 3px rgba(122, 24, 40, 0.15);
+}
+
+.select-marca {
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.tabla-contenedor {
+  max-height: 340px;
+  overflow-y: auto;
+  border: 1px solid #d4d4d8;
+  border-radius: 6px;
+}
+
+.tabla-productos {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.tabla-productos th,
+.tabla-productos td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid #e4e4e7;
+}
+
+.tabla-productos tbody tr:hover {
+  background-color: #faf5f6;
+}
+
+.tabla-productos th {
+  background-color: #f9eef0;
+  color: #5e111e;
+  font-weight: 700;
+  font-size: 15px;
+  border-bottom: 1px solid #e3c2c8;
+  position: sticky;
+  top: 0;
+}
+
+.col-indice {
+  width: 50px;
+  color: #6b6b6b;
+}
+
+.col-pop {
+  width: 160px;
+}
+
+.pill-pop {
+  display: inline-block;
+  background-color: #f9eef0;
+  color: #5e111e;
+  border: 1px solid #e3c2c8;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 2px 10px;
+  border-radius: 9999px;
+}

@@ -1,0 +1,248 @@
+.contenedor-buscador {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.caja-mensaje {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f9eef0;
+  color: #5e111e;
+  border: 1px solid #e3c2c8;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+.punto-estado {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #7a1828;
+  flex-shrink: 0;
+}
+
+.cabecera-seccion,
+.cabecera-resultados,
+.cabecera-catalogo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cabecera-seccion {
+  border-bottom: 1px solid #e4e4e7;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.cabecera-resultados,
+.cabecera-catalogo {
+  margin-bottom: 14px;
+}
+
+.tag-metodo {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  font-weight: 700;
+  font-style: italic;
+  background-color: #f9eef0;
+  color: #5e111e;
+  border: 1px solid #e3c2c8;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.marcas-rapidas {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.etiqueta-marcas {
+  font-size: 15px;
+  font-weight: 700;
+  color: #52525b;
+}
+
+.btn-marca {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: capitalize;
+  padding: 5px 13px;
+  border-radius: 9999px;
+  border: 1px solid #d4d4d8;
+  background-color: #fafafa;
+  color: #3f3f46;
+  cursor: pointer;
+}
+
+.btn-marca:hover {
+  background-color: #f9eef0;
+  border-color: #e3c2c8;
+  color: #5e111e;
+}
+
+.btn-marca.activo {
+  background-color: #7a1828;
+  color: #ffffff;
+  border-color: #7a1828;
+}
+
+.grid-busqueda,
+.grid-insertar {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.campo {
+  flex: 1;
+  min-width: 190px;
+}
+
+.campo-marca {
+  flex: 0 0 160px;
+  min-width: 140px;
+}
+
+.campo-k {
+  flex: 0 0 150px;
+  min-width: 130px;
+}
+
+.campo label {
+  display: block;
+  font-size: 15px;
+  font-weight: 700;
+  color: #27272a;
+  margin-bottom: 6px;
+}
+
+.panel-resultados {
+  margin-top: 18px;
+  border-top: 1px solid #e4e4e7;
+  padding-top: 16px;
+}
+
+.badge-coincidencias {
+  font-size: 14px;
+  background-color: #f9eef0;
+  border: 1px solid #e3c2c8;
+  color: #5e111e;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.sin-resultados {
+  text-align: center;
+  padding: 18px;
+  background-color: #fafafa;
+  border: 1px dashed #d4d4d8;
+  border-radius: 6px;
+  color: #71717a;
+  font-size: 15px;
+}
+
+.lista-top-k {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item-producto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  border: 1px solid #e4e4e7;
+  border-radius: 6px;
+  padding: 10px 14px;
+  background-color: #fafafa;
+}
+
+.item-producto.top-uno {
+  background-color: #f9eef0;
+  border-color: #d69aa5;
+}
+
+.info-izquierda,
+.info-derecha {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.posicion-top {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 26px;
+  padding: 0 8px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 700;
+  background-color: #e4e4e7;
+  color: #27272a;
+}
+
+.posicion-top.medalla-1 {
+  background-color: #5e111e;
+  color: #ffffff;
+}
+
+.posicion-top.medalla-2 {
+  background-color: #7a1828;
+  color: #ffffff;
+}
+
+.posicion-top.medalla-3 {
+  background-color: #9e2a3b;
+  color: #ffffff;
+}
+
+.nombre-producto {
+  font-size: 16px;
+  font-weight: 700;
+  color: #18181b;
+}
+
+.barra-popularidad {
+  width: 90px;
+  height: 8px;
+  background-color: #e4e4e7;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.relleno-popularidad {
+  height: 100%;
+  background: linear-gradient(90deg, #9e2a3b, #5e111e);
+}
+
+.badge-popularidad {
+  font-size: 14px;
+  font-weight: 700;
+  color: #5e111e;
+  background-color: #f9eef0;
+  border: 1px solid #e3c2c8;
+  padding: 4px 10px;
+  border-radius: 6px;
+  min-width: 64px;
+  text-align: center;
+}
+
+.subtexto-catalogo {
+  font-size: 15px;
+  color: #52525b;
+}

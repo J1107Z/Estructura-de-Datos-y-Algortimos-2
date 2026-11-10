@@ -1,0 +1,184 @@
+<div class="contenedor-buscador">
+  @if (mensajeEstado()) {
+  <div class="caja-mensaje">
+    <span class="punto-estado"></span>
+    <span>{{ mensajeEstado() }}</span>
+  </div>
+  }
+
+  <div class="bloque-seccion">
+    <div class="cabecera-seccion">
+      <h3>1. Buscador por Prefijo + Top K Más Populares</h3>
+      <span class="tag-metodo">searchTopK(prefix, k)</span>
+    </div>
+
+    <div class="marcas-rapidas">
+      <span class="etiqueta-marcas">Marcas:</span>
+      @for (marca of marcasRapidas; track marca) {
+      <button
+        type="button"
+        class="btn-marca"
+        [class.activo]="prefijoBusqueda().toLowerCase() === marca"
+        (click)="seleccionarMarca(marca)"
+      >
+        {{ marca }}
+      </button>
+      }
+    </div>
+
+    <div class="grid-busqueda">
+      <div class="campo">
+        <label for="input-prefijo">Prefijo a buscar (prefix)</label>
+        <input
+          id="input-prefijo"
+          type="text"
+          class="input-control"
+          placeholder="Ej: razer, logitech, corsair, hyper x..."
+          [ngModel]="prefijoBusqueda()"
+          (ngModelChange)="actualizarPrefijo($event)"
+        />
+      </div>
+
+      <div class="campo campo-k">
+        <label for="input-k">Top K (cantidad)</label>
+        <input
+          id="input-k"
+          type="number"
+          class="input-control"
+          min="1"
+          max="60"
+          [ngModel]="cantidadTopK()"
+          (ngModelChange)="actualizarTopK($event)"
+        />
+      </div>
+    </div>
+
+    <div class="panel-resultados">
+      <div class="cabecera-resultados">
+        <h4>
+          Top {{ cantidadTopK() }} para el prefijo "{{ prefijoBusqueda() }}"
+        </h4>
+        <span class="badge-coincidencias">
+          Coincidencias: <strong>{{ coincidenciasPrefijo().length }}</strong>
+        </span>
+      </div>
+
+      @if (resultadosTopK().length === 0) {
+      <div class="sin-resultados">
+        No se encontraron productos en el Trie con el prefijo "{{ prefijoBusqueda() }}".
+      </div>
+      } @else {
+      <div class="lista-top-k">
+        @for (prod of resultadosTopK(); track prod.name; let i = $index) {
+        <div class="item-producto" [class.top-uno]="i === 0">
+          <div class="info-izquierda">
+            <span
+              class="posicion-top"
+              [class.medalla-1]="i === 0"
+              [class.medalla-2]="i === 1"
+              [class.medalla-3]="i === 2"
+            >
+              #{{ i + 1 }}
+            </span>
+            <span class="nombre-producto">{{ prod.name }}</span>
+          </div>
+
+          <div class="info-derecha">
+            <div class="barra-popularidad">
+              <div class="relleno-popularidad" [style.width.%]="prod.popularity"></div>
+            </div>
+            <span class="badge-popularidad">{{ prod.popularity }} pts</span>
+          </div>
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
+
+  <div class="bloque-seccion">
+    <div class="cabecera-seccion">
+      <h3>2. Agregar Producto Gamer al Trie</h3>
+      <span class="tag-metodo">insert(name, popularity)</span>
+    </div>
+
+    <div class="grid-insertar">
+      <div class="campo campo-marca">
+        <label for="select-marca">Marca</label>
+        <select
+          id="select-marca"
+          class="input-control select-marca"
+          [(ngModel)]="nuevaMarca"
+        >
+          @for (marca of marcasRapidas; track marca) {
+          <option [value]="marca">{{ marca }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="input-nuevo-nombre">Nombre del producto</label>
+        <input
+          id="input-nuevo-nombre"
+          type="text"
+          class="input-control"
+          placeholder="Ej: huntsman mini teclado"
+          [(ngModel)]="nuevoNombre"
+          (keyup.enter)="insertarProducto()"
+        />
+      </div>
+
+      <div class="campo campo-k">
+        <label for="input-nueva-pop">Popularidad (0 - 100)</label>
+        <input
+          id="input-nueva-pop"
+          type="number"
+          class="input-control"
+          min="0"
+          max="100"
+          placeholder="Ej: 95"
+          [(ngModel)]="nuevaPopularidad"
+          (keyup.enter)="insertarProducto()"
+        />
+      </div>
+
+      <div class="campo-boton">
+        <button type="button" class="btn btn-primario" (click)="insertarProducto()">
+          Agregar Producto
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bloque-seccion">
+    <div class="cabecera-catalogo">
+      <h3>3. Catálogo Almacenado en el Trie</h3>
+      <span class="subtexto-catalogo">
+        Total de productos: <strong>{{ todosLosProductos().length }}</strong>
+      </span>
+    </div>
+
+    <div class="tabla-contenedor">
+      <table class="tabla-productos">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Producto (name)</th>
+            <th>Popularidad (popularity)</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of todosLosProductos(); track item.name; let idx = $index) {
+          <tr>
+            <td class="col-indice">{{ idx + 1 }}</td>
+            <td class="col-nombre">{{ item.name }}</td>
+            <td class="col-pop">
+              <span class="pill-pop">{{ item.popularity }}</span>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

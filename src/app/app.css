@@ -1,0 +1,36 @@
+.contenedor-principal {
+  max-width: 880px;
+  margin: 28px auto 56px auto;
+  padding: 0 18px;
+}
+
+.cabecera {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.cabecera-badge {
+  display: inline-block;
+  background-color: #f9eef0;
+  color: #7a1828;
+  border: 1px solid #e3c2c8;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  margin-bottom: 10px;
+  letter-spacing: 0.3px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 6px 0;
+  color: #5e111e;
+}
+
+.subtitulo {
+  margin: 0;
+  font-size: 16px;
+  color: #52525b;
+}
