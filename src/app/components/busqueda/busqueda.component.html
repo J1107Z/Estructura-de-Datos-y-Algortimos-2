@@ -1,0 +1,43 @@
+<div class="busqueda-container">
+  <div class="search-bar">
+    <div class="input-wrapper">
+      <span class="search-icon">🔍</span>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Escribe para buscar GIFs en tiempo real..."
+        [value]="termino()"
+        (input)="alEscribir($event)"
+      />
+    </div>
+  </div>
+
+  <div class="opciones-metodo">
+    <span class="metodo-label">Método HTTP:</span>
+    <button
+      type="button"
+      class="btn-toggle"
+      [class.activo]="metodoSeleccionado() === 'fetch'"
+      (click)="seleccionarMetodo('fetch')"
+    >
+      Fetch API
+    </button>
+    <button
+      type="button"
+      class="btn-toggle"
+      [class.activo]="metodoSeleccionado() === 'axios'"
+      (click)="seleccionarMetodo('axios')"
+    >
+      Axios
+    </button>
+  </div>
+
+  <div class="sugerencias">
+    <span class="sugerencias-label">Sugerencias:</span>
+    @for (sug of sugerencias; track sug) {
+      <button type="button" class="tag-sugerencia" (click)="buscarSugerencia(sug)">
+        #{{ sug }}
+      </button>
+    }
+  </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="card-gif">
+  <div class="image-wrapper">
+    <img
+      [src]="gif.images.fixed_height.url"
+      [alt]="gif.title || 'GIF animado'"
+      loading="lazy"
+    />
+  </div>
+  <div class="card-info">
+    <h3 class="gif-titulo" [title]="gif.title">{{ gif.title || 'GIF sin título' }}</h3>
+    <a
+      class="gif-link"
+      [href]="gif.url"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Ver en GIPHY
+    </a>
+  </div>
+</div>

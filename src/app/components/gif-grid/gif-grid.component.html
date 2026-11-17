@@ -1,0 +1,42 @@
+<div class="grid-container">
+  @if (giphyService.cargando()) {
+    <div class="loader-box">
+      <div class="spinner"></div>
+      <p>Cargando GIFs...</p>
+    </div>
+  } @else if (giphyService.error()) {
+    <div class="error-box">
+      <p class="error-title">Error en la petición</p>
+      <p class="error-msg">{{ giphyService.error() }}</p>
+    </div>
+  } @else if (giphyService.gifs().length === 0) {
+    <div class="empty-box">
+      @if (giphyService.ultimoTermino()) {
+        <p class="empty-title">Sin resultados</p>
+        <p class="empty-subtitle">
+          No se encontraron GIFs para "{{ giphyService.ultimoTermino() }}". Intenta con otra palabra.
+        </p>
+      } @else {
+        <p class="empty-title">¿Qué quieres buscar hoy?</p>
+        <p class="empty-subtitle">
+          Escribe un término en el buscador de arriba para explorar GIFs con la API de GIPHY.
+        </p>
+      }
+    </div>
+  } @else {
+    <div class="grid-header">
+      <h2 class="grid-title">
+        Resultados para <span class="highlight">"{{ giphyService.ultimoTermino() }}"</span>
+      </h2>
+      <span class="badge-metodo">
+        Método: {{ giphyService.metodoActual().toUpperCase() }} ({{ giphyService.gifs().length }} GIFs)
+      </span>
+    </div>
+
+    <div class="gifs-grid">
+      @for (gif of giphyService.gifs(); track gif.id) {
+        <app-gif-card [gif]="gif"></app-gif-card>
+      }
+    </div>
+  }
+</div>
