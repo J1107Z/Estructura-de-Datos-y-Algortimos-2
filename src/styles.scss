@@ -1,0 +1,236 @@
+$fuente: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+$color-primario: #1db954;
+$color-primario-hover: #1ed760;
+$color-fondo: #121212;
+$color-tarjeta: #181818;
+$color-item: #202020;
+$color-borde: #2e2e2e;
+$color-texto: #f3f4f6;
+$color-texto-suave: #a1a1aa;
+$color-peligro: #ef4444;
+$color-oro: #f5c518;
+$color-plata: #cbd5e1;
+$color-bronce: #cd7f32;
+
+$espacio: 10px;
+$radio: 6px;
+
+@function doble($valor) {
+  @return $valor * 2;
+}
+
+@mixin flex-centro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-entre {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@mixin caja-panel {
+  background-color: $color-tarjeta;
+  border: 1px solid $color-borde;
+  border-radius: $radio + 4px;
+  padding: doble($espacio);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $fuente;
+  background-color: $color-fondo;
+  color: $color-texto;
+}
+
+.panel {
+  @include caja-panel;
+  margin-bottom: $espacio * 2;
+
+  .panel-titulo {
+    @include flex-entre;
+    flex-wrap: wrap;
+    gap: $espacio;
+    border-bottom: 1px solid $color-borde;
+    padding-bottom: $espacio;
+    margin-bottom: $espacio + 6px;
+
+    h2 {
+      margin: 0;
+      font-size: 18px;
+      color: $color-texto;
+    }
+
+    span {
+      font-size: 13px;
+      color: $color-primario-hover;
+      font-weight: 600;
+    }
+  }
+}
+
+.btn {
+  font-family: $fuente;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: $radio + 12px;
+  border: 1px solid $color-borde;
+  background-color: #242424;
+  color: $color-texto;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #303030;
+    border-color: #444444;
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+
+  &.btn-primario {
+    background-color: $color-primario;
+    border-color: $color-primario;
+    color: #0b0b0b;
+
+    &:hover:not(:disabled) {
+      background-color: $color-primario-hover;
+      border-color: $color-primario-hover;
+    }
+  }
+
+  &.btn-peligro {
+    background-color: rgba($color-peligro, 0.14);
+    color: #fca5a5;
+    border-color: rgba($color-peligro, 0.4);
+
+    &:hover:not(:disabled) {
+      background-color: $color-peligro;
+      color: #ffffff;
+    }
+  }
+
+  &.btn-sm {
+    padding: 5px 11px;
+    font-size: 12px;
+  }
+}
+
+.input-control {
+  font-family: $fuente;
+  font-size: 14px;
+  padding: 8px 12px;
+  border: 1px solid $color-borde;
+  border-radius: $radio;
+  background-color: $color-fondo;
+  color: $color-texto;
+
+  &::placeholder {
+    color: #71717a;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-primario;
+  }
+}
+
+.mensaje {
+  padding: 10px 14px;
+  border-radius: $radio;
+  font-size: 13px;
+  margin-bottom: $espacio + 4px;
+  background-color: rgba($color-primario, 0.14);
+  border: 1px solid rgba($color-primario, 0.4);
+  color: #bbf7d0;
+
+  &.mensaje-error {
+    background-color: rgba($color-peligro, 0.14);
+    border-color: rgba($color-peligro, 0.4);
+    color: #fecaca;
+  }
+}
+
+.lista-ranking {
+  display: flex;
+  flex-direction: column;
+  gap: $espacio;
+
+  .item-ranking {
+    @include flex-entre;
+    flex-wrap: wrap;
+    gap: $espacio;
+    padding: 12px 14px;
+    background-color: $color-item;
+    border: 1px solid $color-borde;
+    border-radius: $radio + 2px;
+
+    &:hover {
+      background-color: #262626;
+    }
+
+    &.medalla-1 {
+      border-left: 4px solid $color-oro;
+      background-color: rgba($color-oro, 0.08);
+
+      .posicion {
+        color: $color-oro;
+        border-color: rgba($color-oro, 0.5);
+      }
+    }
+
+    &.medalla-2 {
+      border-left: 4px solid $color-plata;
+
+      .posicion {
+        color: $color-plata;
+        border-color: rgba($color-plata, 0.5);
+      }
+    }
+
+    &.medalla-3 {
+      border-left: 4px solid $color-bronce;
+
+      .posicion {
+        color: $color-bronce;
+        border-color: rgba($color-bronce, 0.5);
+      }
+    }
+
+    .posicion {
+      @include flex-centro;
+      min-width: doble(16px);
+      height: doble(16px);
+      border-radius: 50%;
+      background-color: $color-tarjeta;
+      border: 1px solid $color-borde;
+      color: $color-texto-suave;
+      font-weight: 700;
+      font-size: 13px;
+    }
+  }
+}
+
+.barra-popularidad {
+  width: 120px;
+  height: 8px;
+  background-color: #2e2e2e;
+  border-radius: 999px;
+  overflow: hidden;
+
+  .barra-relleno {
+    height: 100%;
+    background-color: $color-primario;
+  }
+}

@@ -1,0 +1,118 @@
+<section class="panel">
+  <div class="panel-titulo">
+    <h2>1. Buscador Predictivo de Canciones (Trie)</h2>
+    <span>Total guardadas: {{ musicService.songs().length }}</span>
+  </div>
+
+  @if (mensaje()) {
+    <div class="mensaje" [class.mensaje-error]="esError()">{{ mensaje() }}</div>
+  }
+
+  <div class="bloque">
+    <h3>Sugerencias por prefijo</h3>
+
+    <div class="chips-prefijos">
+      <span>Ejemplos:</span>
+      @for (p of prefijosEjemplo; track p) {
+        <button
+          type="button"
+          class="btn btn-sm"
+          [class.btn-primario]="prefijo() === p"
+          (click)="buscarPrefijo(p)"
+        >
+          {{ p }}
+        </button>
+      }
+      <button
+        type="button"
+        class="btn btn-sm"
+        [class.btn-primario]="prefijo() === ''"
+        (click)="buscarPrefijo('')"
+      >
+        Todas
+      </button>
+    </div>
+
+    <input
+      type="text"
+      class="input-control ancho-total"
+      placeholder="Escribe un prefijo (ej: f, m, k, p, t)..."
+      [ngModel]="prefijo()"
+      (ngModelChange)="buscarPrefijo($event)"
+    />
+
+    @if (sugerencias.length > 0) {
+      <ul class="lista-sugerencias">
+        @for (song of sugerencias; track song.title) {
+          <li>
+            <div>
+              <strong class="titulo-cancion">{{ song.title }}</strong>
+              <span class="subtexto"> — {{ song.artist }} ({{ song.plays }} rep.)</span>
+            </div>
+            <button
+              type="button"
+              class="btn btn-primario btn-sm"
+              (click)="musicService.escucharCancion(song.title)"
+            >
+              +1 Escuchar
+            </button>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="texto-vacio">No hay canciones que empiecen con "{{ prefijo() }}".</p>
+    }
+  </div>
+
+  <div class="bloque">
+    <h3>Buscar si una canción existe</h3>
+    <div class="fila-form">
+      <input
+        type="text"
+        class="input-control flex-1"
+        placeholder="Título exacto (ej: que lio)"
+        [(ngModel)]="textoExacto"
+        (keyup.enter)="verificarCancion()"
+      />
+      <button type="button" class="btn btn-primario" (click)="verificarCancion()">Buscar</button>
+    </div>
+
+    @if (existeCancion() !== null) {
+      @if (existeCancion()) {
+        <p class="resultado-ok">La canción "{{ ultimaBusqueda() }}" SÍ existe en el Trie.</p>
+      } @else {
+        <p class="resultado-no">La canción "{{ ultimaBusqueda() }}" NO existe en el Trie.</p>
+      }
+    }
+  </div>
+
+  <div class="bloque">
+    <h3>Insertar nueva canción</h3>
+    <form class="fila-form" (ngSubmit)="insertarCancion()">
+      <input
+        type="text"
+        name="titulo"
+        class="input-control flex-1"
+        placeholder="Título de la canción"
+        [(ngModel)]="nuevoTitulo"
+        required
+      />
+      <input
+        type="text"
+        name="artista"
+        class="input-control flex-1"
+        placeholder="Artista"
+        [(ngModel)]="nuevoArtista"
+      />
+      <input
+        type="number"
+        name="plays"
+        class="input-control campo-num"
+        placeholder="Reproducciones"
+        min="0"
+        [(ngModel)]="nuevasReproducciones"
+      />
+      <button type="submit" class="btn btn-primario">Insertar</button>
+    </form>
+  </div>
+</section>

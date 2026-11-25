@@ -1,0 +1,93 @@
+<section class="panel">
+  <div class="panel-titulo">
+    <h2>3. Recomendación de Canciones Relacionadas (Grafo No Dirigido)</h2>
+    <button type="button" class="btn btn-sm" (click)="imprimirGrafo()">
+      Imprimir grafo en consola
+    </button>
+  </div>
+
+  @if (mensaje()) {
+    <div class="mensaje">{{ mensaje() }}</div>
+  }
+
+  <div class="bloque">
+    <label for="select-song"><strong>Seleccionar canción:</strong></label>
+    <select
+      id="select-song"
+      class="input-control"
+      [ngModel]="cancionSeleccionada()"
+      (ngModelChange)="seleccionarCancion($event)"
+    >
+      @for (song of musicService.songs(); track song.title) {
+        <option [value]="song.title">{{ song.title }} — {{ song.artist }}</option>
+      }
+    </select>
+
+    <h3>Canciones recomendadas para "{{ cancionSeleccionada() }}":</h3>
+    @if (relacionadas.length > 0) {
+      <ul class="lista-rel">
+        @for (rel of relacionadas; track rel.title) {
+          <li>
+            <span>
+              <strong class="titulo-cancion">{{ rel.title }}</strong> — {{ rel.artist }} ({{ rel.plays }} rep.)
+            </span>
+            <div class="acciones">
+              <button
+                type="button"
+                class="btn btn-primario btn-sm"
+                (click)="musicService.escucharCancion(rel.title)"
+              >
+                +1 Escuchar
+              </button>
+              <button
+                type="button"
+                class="btn btn-sm"
+                (click)="seleccionarCancion(rel.title)"
+              >
+                Ver sus similares
+              </button>
+              <button
+                type="button"
+                class="btn btn-peligro btn-sm"
+                (click)="desconectar(rel.title)"
+              >
+                Quitar conexión
+              </button>
+            </div>
+          </li>
+        }
+      </ul>
+    } @else {
+      <p class="vacio">Esta canción no tiene canciones relacionadas todavía.</p>
+    }
+  </div>
+
+  <div class="bloque">
+    <h3>Conectar dos canciones similares (addEdge)</h3>
+    <div class="fila-conectar">
+      <select class="input-control flex-1" [(ngModel)]="cancion1">
+        <option value="">Canción 1</option>
+        @for (song of musicService.songs(); track song.title) {
+          <option [value]="song.title">{{ song.title }}</option>
+        }
+      </select>
+
+      <select class="input-control flex-1" [(ngModel)]="cancion2">
+        <option value="">Canción 2</option>
+        @for (song of musicService.songs(); track song.title) {
+          <option [value]="song.title">{{ song.title }}</option>
+        }
+      </select>
+
+      <button type="button" class="btn btn-primario" (click)="conectar()">Conectar</button>
+    </div>
+  </div>
+
+  <div class="bloque">
+    <div class="leyenda">
+      <h3>Visualización del grafo</h3>
+      <span>Verde: seleccionada · Azul: recomendadas · Arrastra nodos o haz zoom</span>
+    </div>
+    <div #grafoContenedor class="caja-grafo"></div>
+  </div>
+</section>

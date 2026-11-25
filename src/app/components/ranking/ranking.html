@@ -1,0 +1,86 @@
+<section class="panel">
+  <div class="panel-titulo">
+    <h2>2. Ranking de Canciones Populares (Max Heap)</h2>
+
+    <div class="controles-top">
+      <button
+        type="button"
+        class="btn btn-sm"
+        [class.btn-primario]="topK() === 3"
+        (click)="cambiarTop(3)"
+      >
+        Top 3
+      </button>
+      <button
+        type="button"
+        class="btn btn-sm"
+        [class.btn-primario]="topK() === 5"
+        (click)="cambiarTop(5)"
+      >
+        Top 5
+      </button>
+      <button
+        type="button"
+        class="btn btn-sm"
+        [class.btn-primario]="topK() === 10"
+        (click)="cambiarTop(10)"
+      >
+        Top 10
+      </button>
+    </div>
+  </div>
+
+  @if (mensaje()) {
+    <div class="mensaje">{{ mensaje() }}</div>
+  }
+
+  <div class="acciones-heap">
+    <button type="button" class="btn btn-sm" (click)="verMasPopular()">Ver raíz (peek)</button>
+    <button
+      type="button"
+      class="btn btn-peligro btn-sm"
+      [disabled]="musicService.heapList().length === 0"
+      (click)="extraerTop()"
+    >
+      Extraer #1 (pop)
+    </button>
+    <button type="button" class="btn btn-sm" (click)="restablecerHeap()">
+      Restablecer (heapify)
+    </button>
+  </div>
+
+  <div class="lista-ranking">
+    @for (song of rankingVisible; track song.title; let i = $index) {
+      <div
+        class="item-ranking"
+        [class.medalla-1]="i === 0"
+        [class.medalla-2]="i === 1"
+        [class.medalla-3]="i === 2"
+      >
+        <div class="lado-izq">
+          <span class="posicion">#{{ i + 1 }}</span>
+          <div>
+            <strong class="titulo-cancion">{{ song.title }}</strong>
+            <div class="artista">{{ song.artist }}</div>
+          </div>
+        </div>
+
+        <div class="lado-der">
+          <div class="barra-popularidad">
+            <div class="barra-relleno" [style.width.%]="calcularPorcentaje(song.plays)"></div>
+          </div>
+          <span class="plays">{{ song.plays }} rep.</span>
+          <button
+            type="button"
+            class="btn btn-primario btn-sm"
+            (click)="musicService.escucharCancion(song.title)"
+          >
+            +1 Escuchar
+          </button>
+        </div>
+      </div>
+    } @empty {
+      <p class="vacio">El Max Heap está vacío. Presiona "Restablecer (heapify)".</p>
+    }
+  </div>
+</section>
